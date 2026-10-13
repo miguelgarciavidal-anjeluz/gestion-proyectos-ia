@@ -4,6 +4,7 @@ Código de las actividades que se realizarán durante el curso.
 ## Contenido
 ```
 Actividad-04/ Identificar e implementar el modelo preentrenado más adecuado para un caso de uso específico.
+Actividad-05/ Design thinking, definiendo e ideando
 ```
 
 Cada tema incluye su propio directorio `data/` con los datasets que usan los notebooks
