@@ -1,1 +1,7 @@
-/Actividad-05/training.log
+training.log
+
+*.db
+*.csv
+
+mlartifacts
+mlruns
