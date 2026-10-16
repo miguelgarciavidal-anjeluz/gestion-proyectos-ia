@@ -1,6 +1,7 @@
 from classification_trainer_mlflow_registry import (
     ClassificationTrainer
 )
+
 result_path = 'Actividad-05/results/'
 
 trainer = ClassificationTrainer(
@@ -25,10 +26,10 @@ print(
 )
 
 param_grid = {
-    'C':[0.5],
-    'max_iter':[100],
-    'penalty':['l2'],
-    'solver':['liblinear'],
+    'C': [0.5],
+    'max_iter': [100],
+    'penalty': ['l2'],
+    'solver': ['liblinear'],
 }
 
 trainer.hyperparameter_tuning(

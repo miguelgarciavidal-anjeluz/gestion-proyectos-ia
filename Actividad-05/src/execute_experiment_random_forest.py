@@ -1,6 +1,7 @@
 from classification_trainer_mlflow_registry import (
     ClassificationTrainer
 )
+
 result_path = 'Actividad-05/results/'
 
 trainer = ClassificationTrainer(
@@ -28,10 +29,10 @@ print(
 param_grid = {
     "n_estimators": [2000],
     "max_depth": [10],
-    "max_features": ["sqrt"], #["auto", "sqrt", "log2"]
+    "max_features": ["sqrt"],  # ["auto", "sqrt", "log2"]
     "min_samples_split": [10],
     "min_samples_leaf": [10],
-    "criterion": ["entropy"],# ["gini", "entropy"]
+    "criterion": ["entropy"],  # ["gini", "entropy"]
 }
 
 trainer.hyperparameter_tuning(

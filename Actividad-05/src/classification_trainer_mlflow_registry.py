@@ -1,26 +1,18 @@
-import pandas as pd
-import numpy as np
-import joblib
-import json
 import hashlib
+import json
 import logging
 
+import joblib
+import matplotlib.pyplot as plt
 import mlflow
 import mlflow.sklearn
-
+import numpy as np
+import pandas as pd
+import seaborn as sns
 from mlflow import MlflowClient
 from mlflow.models import infer_signature
-
-from sklearn.model_selection import (
-    train_test_split,
-    cross_validate,
-    GridSearchCV,
-    StratifiedKFold
-)
-from sklearn.tree._tree import Tree
-from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
-
+from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (
     accuracy_score,
     precision_score,
@@ -30,23 +22,26 @@ from sklearn.metrics import (
     confusion_matrix,
     classification_report
 )
-
-import matplotlib.pyplot as plt
-import seaborn as sns
+from sklearn.model_selection import (
+    train_test_split,
+    cross_validate,
+    GridSearchCV,
+    StratifiedKFold
+)
 
 
 class ClassificationTrainer:
 
     def __init__(
-        self,
-        csv_path,
-        target_column,
-        model_name='logistic_regression',
-        experiment_name='ClassificationExperiment',
-        registered_model_name='ClassificationModel',
-        tracking_uri='http://localhost:5000',
-        test_size=0.2,
-        random_state=42
+            self,
+            csv_path,
+            target_column,
+            model_name='logistic_regression',
+            experiment_name='ClassificationExperiment',
+            registered_model_name='ClassificationModel',
+            tracking_uri='http://localhost:5000',
+            test_size=0.2,
+            random_state=42
     ):
 
         self.csv_path = csv_path
