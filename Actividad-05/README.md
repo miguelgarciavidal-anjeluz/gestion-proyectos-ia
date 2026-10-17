@@ -17,7 +17,7 @@ El conjunto de datos para la predicción de la diabetes es una recopilación de 
 ## Estructura del proyecto
 El proyecto está estructurada en 3 carpetas. Cada una con una función diferente
 * **_data_** - Contiene el dataset que se descarga directamente de la página de Kaggle. (Por limitaciones en Github no es posible cargar el dataset.csv)
-* **_src_** - Contiene los programas python con los cuales se realizarán los experimentos. Dentro de esa carpeta se encuentra un README.md donde explica más a detalle el funcionamiento de los programas.
+* **_src_** - Contiene los programas python con los cuales se realizarán los experimentos. Dentro de esa carpeta se encuentra un **README.md** donde explica más a detalle el funcionamiento de los programas.
 * **_results_** - Contiene el resultado del experimento con el reporte de clasificaciones y la matriz de confusión.
 
 ## Proceso del experimento.
@@ -48,3 +48,4 @@ El proyecto está estructurada en 3 carpetas. Cada una con una función diferent
 
     `python Actividad-05/src/execute_experiment_logistic_regression.py`
 6. Para revisar los resultados solo tenemos que entrar a la consola de **_MLflow_**. Para ello solo se debe de entrar a la liga: [http://127.0.0.1:5000/](http://127.0.0.1:5000/) y seleccionar el experimento de _**Diabetes Prediction**_
+
