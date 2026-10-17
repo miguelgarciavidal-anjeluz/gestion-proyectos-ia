@@ -160,28 +160,17 @@ predictions = model.predict(nuevos_datos)
 ## Estructura esperada del dataset
 
 ```text
-edad,ingresos,deuda,default
-30,25000,5000,0
-45,40000,12000,1
+gender,age,hypertension,heart_disease,smoking_history,bmi,HbA1c_level,blood_glucose_level,diabetes
+Female,80.0,0,1,never,25.19,6.6,140,0
+Female,54.0,0,0,No Info,27.32,6.6,80,0
 ```
 
-La columna especificada en target_column será utilizada como variable objetivo.
-
-## Casos de uso
-
-- Riesgo crediticio
-- Cobranza
-- Detección de fraude
-- PLD / AML
-- Churn prediction
-- Clasificación binaria empresarial
+La columna especificada en target_column será utilizada como variable objetivo. En nuestro caso será **diabetes**
 
 ## Recomendaciones futuras
 
 - Pipeline de preprocesamiento
 - XGBoost, LightGBM y CatBoost
-- SHAP Explainability
-- Feature Importance
 - Data Drift Monitoring
 - MLflow Model Serving
 - Integración CI/CD
