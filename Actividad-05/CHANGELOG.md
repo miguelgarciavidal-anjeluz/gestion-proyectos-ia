@@ -49,8 +49,7 @@ y este proyecto adhiere al [Versionado Semántico](https://semver.org).
 
 - Generación de archivo python `execute_experiment_logistic_regression.py` para la ejecución del experimento del
   algoritmo **_Logistic Regression_**.
-- Generación de archivo python `execute_experiment_random_forest.py` para la ejecución del experimento del algoritmo **
-  _Random Forest_**.
+- Generación de archivo python `execute_experiment_random_forest.py` para la ejecución del experimento del algoritmo **_Random Forest_**.
 
 ## 2026-10-14
 
