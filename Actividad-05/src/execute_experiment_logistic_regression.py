@@ -26,10 +26,11 @@ print(
 )
 
 param_grid = {
-    'C': [0.5],
-    'max_iter': [100],
+    'C': [0.25],
+    'max_iter': [5000],
     'penalty': ['l2'],
-    'solver': ['liblinear'],
+    'solver': ['lbfgs'],
+    'class_weight':['balanced'],
 }
 
 trainer.hyperparameter_tuning(

@@ -12,13 +12,13 @@ Para ello es necesario ejecutar algunos experimientos para verificar que modelo 
 Se realizarán varios experimentos con la ayuda de MLflow con diferentes algoritmos de ML así como de diferentes configuraciones de hiperparámetros.
 
 ## Características del Dataset
-El conjunto de datos para la predicción de la diabetes es una recopilación de información médica y demográfica de pacientes, junto con su estado respecto a la diabetes (positivo o negativo). Los datos incluyen variables como la edad, el sexo, el índice de masa corporal (IMC), la presencia de hipertensión o enfermedades cardíacas, el historial de tabaquismo, el nivel de HbA1c y el nivel de glucosa en sangre. Este conjunto de datos puede utilizarse para desarrollar modelos de aprendizaje automático destinados a predecir la diabetes en pacientes a partir de sus antecedentes médicos e información demográfica. Esto resulta útil para que los profesionales de la salud identifiquen a los pacientes con riesgo de desarrollar diabetes y elaboren planes de tratamiento personalizados. Asimismo, el conjunto de datos puede ser empleado por investigadores para explorar las relaciones entre diversos factores médicos y demográficos y la probabilidad de desarrollar diabetes.([Diabetes prediction dataset](https://www.kaggle.com/datasets/iammustafatz/diabetes-prediction-dataset))
+El conjunto de datos para la predicción de la diabetes es una recopilación de información médica y demográfica de pacientes, junto con su estado respecto a la diabetes (positivo o negativo). Los datos incluyen variables como la edad, el sexo, el índice de masa corporal (IMC), la presencia de hipertensión o enfermedades cardíacas, el historial de tabaquismo, el nivel de HbA1c y el nivel de glucosa en sangre.([Diabetes prediction dataset](https://www.kaggle.com/datasets/iammustafatz/diabetes-prediction-dataset))
 
 ## Estructura del proyecto
 El proyecto está estructurada en 3 carpetas. Cada una con una función diferente
 * **_data_** - Contiene el dataset que se descarga directamente de la página de Kaggle. (Por limitaciones en Github no es posible cargar el dataset.csv)
 * **_src_** - Contiene los programas python con los cuales se realizarán los experimentos. Dentro de esa carpeta se encuentra un **README.md** donde explica más a detalle el funcionamiento de los programas.
-* **_results_** - Contiene el resultado del experimento con el reporte de clasificaciones y la matriz de confusión.
+* **_results_** - Contiene el resultado del experimento con el reporte de clasificaciones y la matriz de confusión, así como un Reporte Técnico con los hallazgos.
 
 ## Proceso del experimento.
 1. Cargar el dataset dentro del entorno. Para ello se debe de ejecutar el archivo python `load_dataset.py`

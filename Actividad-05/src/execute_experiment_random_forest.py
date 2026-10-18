@@ -28,10 +28,10 @@ print(
 
 param_grid = {
     "n_estimators": [2000],
-    "max_depth": [10],
-    "max_features": ["sqrt"],  # ["auto", "sqrt", "log2"]
-    "min_samples_split": [10],
-    "min_samples_leaf": [10],
+    #"max_depth": [20],
+    "max_features": ["sqrt"],  # ["sqrt", "log2"]
+    "min_samples_split": [20],
+    "min_samples_leaf": [2],
     "criterion": ["entropy"],  # ["gini", "entropy"]
 }
 
