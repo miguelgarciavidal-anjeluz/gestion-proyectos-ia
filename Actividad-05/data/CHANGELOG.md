@@ -1,5 +1,11 @@
 # Changelog
+Todas las modificaciones notables de este proyecto serán documentadas en este archivo.
 
-## v1.1.0 - 2026-10-14
+El formato está basado en [Keep a Changelog](https://keepachangelog.com),
+y este proyecto adhiere al [Versionado Semántico](https://semver.org).
 
-- Dataset con 96,146 registros de pacientes en un estudio de diabetes después de limpiar el dataset y eliminar los duplicados y vacíos.
+## 2026-10-14
+
+### Añadido
+- Dataset `diabetes_prediction_dataset.csv` con 100 mil registros originalmente.
+- Dataset `diabetes_prediction_dataset_clean.csv` con 96,146 registros después de la limpieza.

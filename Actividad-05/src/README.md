@@ -141,22 +141,6 @@ trainer.end_experiment()
 - model.pkl
 - Modelo registrado en MLflow Registry
 
-## Promoción a producción
-
-```python
-trainer.promote_to_production(min_f1=0.80)
-```
-
-El modelo solo será promovido si cumple el umbral mínimo de F1 definido.
-
-## Recuperación del modelo en producción
-
-```python
-model = trainer.load_production_model()
-
-predictions = model.predict(nuevos_datos)
-```
-
 ## Estructura esperada del dataset
 
 ```text

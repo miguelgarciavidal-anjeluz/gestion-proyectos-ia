@@ -291,33 +291,5 @@ class ClassificationTrainer:
             stage='Staging'
         )
 
-    def promote_to_production(self, min_f1=0.80):
-
-        results = self.evaluate()
-
-        if results['f1'] < min_f1:
-            return False
-
-        client = MlflowClient()
-
-        versions = client.search_model_versions(
-            f"name='{self.registered_model_name}'"
-        )
-
-        latest = max(versions, key=lambda x: int(x.version))
-
-        client.transition_model_version_stage(
-            name=self.registered_model_name,
-            version=latest.version,
-            stage='Production'
-        )
-
-        return True
-
-    def load_production_model(self):
-        return mlflow.pyfunc.load_model(
-            f'models:/{self.registered_model_name}/Production'
-        )
-
     def end_experiment(self):
         mlflow.end_run()
