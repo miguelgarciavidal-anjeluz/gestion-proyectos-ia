@@ -7,12 +7,10 @@ notebook
 pandas
 numpy
 matplotlib
+scipy
+seaborn
 
-# Modelos preentrenados / Transformers (Tema-03 Modelos generativos, Tema-04)
-transformers
-torch
-
-# Visión computacional (semana-05: Tema-09, Tema-10)
-opencv-python
-Pillow
-albumentations
+# Modelos ML
+sklearn
+sklearn.ensemble.RandomForestClassifier
+sklearn.linear_model.LogisticRegression

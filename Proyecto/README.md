@@ -31,6 +31,12 @@ matplotlib
 scipy
 seaborn
 
+# Apificación
+fastapi
+uvicorn
+python-multipart
+pickle
+
 # Modelos ML
 sklearn
 sklearn.ensemble.RandomForestClassifier
