@@ -5,6 +5,10 @@ Todas las modificaciones notables de este proyecto serán documentadas en este a
 El formato está basado en [Keep a Changelog](https://keepachangelog.com),
 y este proyecto adhiere al [Versionado Semántico](https://semver.org).
 
+## 2026-10-30
+
+- Se eliminan registros de los archivos `resultados.csv` y `transactions.csv` para reducir tamaño y poder subirlo a Git por el límite de espacio.
+
 ## 2026-10-27
 
 - Completar información mediante Notebook `DataLoader.ipynb`
