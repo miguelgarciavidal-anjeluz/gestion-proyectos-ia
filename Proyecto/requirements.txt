@@ -1,0 +1,18 @@
+# Núcleo de notebooks
+jupyter
+ipykernel
+notebook
+
+# Manipulación de datos y visualización
+pandas
+numpy
+matplotlib
+
+# Modelos preentrenados / Transformers (Tema-03 Modelos generativos, Tema-04)
+transformers
+torch
+
+# Visión computacional (semana-05: Tema-09, Tema-10)
+opencv-python
+Pillow
+albumentations
