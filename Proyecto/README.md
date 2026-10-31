@@ -59,3 +59,30 @@ sklearn.linear_model.LogisticRegression
    conda activate <<nombre>>
    ```
 Para salir del entorno cuando termines: `conda deactivate`.
+
+## Docker
+
+### Prerequisitos
+
+1) Creación del modelo que servirá para la predicción de las transacciones a alertar. Para la creación del modelo se deberá de ejecutar el notebook `src/Notebook_Evaluacion_PLD.ipynb`. Este Notebook creará sobre la carpeta models los `modelos` con extensión pkl.  
+2) Probar el modelo generado. Para ello se deberá de ejecutar el comando: 
+   1) `python src/simulador.py`.
+   2) **Importante**: La ejecución de los comandos se deben de realizar desde la raiz del proyecto. La alternativa es adecuar el programa python para recuperar el modelo de ML de la ruta indicada.
+3) Instalar y levantar el servicio Docker. La forma sensilla para desarrolladores es descargar el software [Docker Desktop](https://www.docker.com/products/docker-desktop/). 
+
+### Creación de contenedor
+
+Para la creación del contenedor se utilizará el archivo `Dockerfile` el cual está configurado para recuperar los elementos a contenizar conforme a la estructura del proyecto. Para ello se deberá de ejecutar el comando:
+- `docker build -t modelo_fraude .` 
+- **Nota**: El nombre del modelo se puede ajustar.
+
+### Levantar servicio (API)
+
+Para levantar la API que se podrá utilizar para realizar las predicciones se hará uso del comando:
+
+-  `docker run -p 8000:8000 modelo_fraude`
+
+Una vez levantado el servicio se podrá llamar a la API:
+
+- `GET`: http://localhost:8000/
+- `POST`: http://localhost:8000/predict?initial_balance=12908&tx_amount=890.20&client_income=34234.50&historical_amount=789&incorparation_days=590
