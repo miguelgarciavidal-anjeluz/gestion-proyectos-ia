@@ -3,6 +3,7 @@ training.log
 *.db
 *.csv
 *.idea
+*.pkl
 
 mlartifacts
 mlruns
