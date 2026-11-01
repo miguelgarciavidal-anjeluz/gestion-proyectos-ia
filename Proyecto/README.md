@@ -81,6 +81,11 @@ INFO:     Started server process [22091]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 ``
+
+   Una vez levantado el servicio se podrá llamar a la API:
+
+- `GET`: http://localhost:8000/
+- `POST`: http://localhost:8000/predict
 2) Ejecutar el comando: `python src/simuladorClienteAPI.py`
 
 
@@ -96,13 +101,8 @@ Para la creación del contenedor se utilizará el archivo `Dockerfile` el cual e
 - `docker build -t modelo_fraude .` 
 - **Nota**: El nombre del modelo se puede ajustar.
 
-### Levantar servicio (API)
+### Levantar servicio contenerizado.
 
 Para levantar la API que se podrá utilizar para realizar las predicciones se hará uso del comando:
 
 -  `docker run -p 8000:8000 modelo_fraude`
-
-Una vez levantado el servicio se podrá llamar a la API:
-
-- `GET`: http://localhost:8000/
-- `POST`: http://localhost:8000/predict?initial_balance=12908&tx_amount=890.20&client_income=34234.50&historical_amount=789&incorparation_days=590
