@@ -60,9 +60,7 @@ sklearn.linear_model.LogisticRegression
    ```
 Para salir del entorno cuando termines: `conda deactivate`.
 
-## Docker
-
-### Prerequisitos
+## Generación y pruebas del modelo de ML para PLD
 
 1) Creación del modelo que servirá para la predicción de las transacciones a alertar. Para la creación del modelo se cuentan con dos opciones; ambas opciones crearán sobre la carpeta `models` los modelos con extensión pkl.:
    1) Ejecutar el notebook `Notebook_Evaluacion_PLD.ipynb`.
@@ -70,7 +68,27 @@ Para salir del entorno cuando termines: `conda deactivate`.
 2) Probar el modelo generado. Para ello se deberá de ejecutar el comando: 
    1) `python simulador.py`.
    2) **Importante**: La ejecución de los comandos se deben de realizar desde la raiz del proyecto. La alternativa es adecuar el programa python para recuperar el modelo de ML de la ruta indicada.
-3) Instalar y levantar el servicio Docker. La forma sensilla para desarrolladores es descargar el software [Docker Desktop](https://www.docker.com/products/docker-desktop/). 
+
+## Levantar servicio en local y probar
+
+1) Ejecutar el comando: `uvicorn service:app --reload`, se visualizará algo del siguiente modo:
+
+``
+INFO:     Will watch for changes in these directories: ['/xxxx/xxxxx/']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [22089] using WatchFiles
+INFO:     Started server process [22091]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+``
+2) Ejecutar el comando: `python src/simuladorClienteAPI.py`
+
+
+## Generación de contenedor Docker
+
+### Prerequisitos
+
+1) Instalar y levantar el servicio Docker. La forma sensilla para desarrolladores es descargar el software [Docker Desktop](https://www.docker.com/products/docker-desktop/). 
 
 ### Creación de contenedor
 
