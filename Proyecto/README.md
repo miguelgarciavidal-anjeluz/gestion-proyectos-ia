@@ -86,7 +86,15 @@ INFO:     Application startup complete.
 
 - `GET`: http://localhost:8000/
 - `POST`: http://localhost:8000/predict
-2) Ejecutar el comando: `python src/simuladorClienteAPI.py`
+2) Ejecutar el comando: `python src/simuladorClienteAPI.py`. Se mostrará un prompt solicitando la información para realizar la predicción.
+```
+Initial Balance:9000
+Tx Amount:9876.40
+Client Income:1500
+Historical Amount:90
+Incorporation Days:423
+{'es fraude?': True}
+```
 
 
 ## Generación de contenedor Docker
