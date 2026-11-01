@@ -73,14 +73,14 @@ Para salir del entorno cuando termines: `conda deactivate`.
 
 1) Ejecutar el comando: `uvicorn service:app --reload`, se visualizará algo del siguiente modo:
 
-``
+```
 INFO:     Will watch for changes in these directories: ['/xxxx/xxxxx/']
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 INFO:     Started reloader process [22089] using WatchFiles
 INFO:     Started server process [22091]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-``
+```
 
    Una vez levantado el servicio se podrá llamar a la API:
 
