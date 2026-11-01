@@ -64,9 +64,11 @@ Para salir del entorno cuando termines: `conda deactivate`.
 
 ### Prerequisitos
 
-1) Creación del modelo que servirá para la predicción de las transacciones a alertar. Para la creación del modelo se deberá de ejecutar el notebook `src/Notebook_Evaluacion_PLD.ipynb`. Este Notebook creará sobre la carpeta models los `modelos` con extensión pkl.  
+1) Creación del modelo que servirá para la predicción de las transacciones a alertar. Para la creación del modelo se cuentan con dos opciones; ambas opciones crearán sobre la carpeta `models` los modelos con extensión pkl.:
+   1) Ejecutar el notebook `Notebook_Evaluacion_PLD.ipynb`.
+   2) Ejecutar directamente el archivo python `src/randomForestModelAML.py` mediante el comando: `python randomForestModelAML.py` 
 2) Probar el modelo generado. Para ello se deberá de ejecutar el comando: 
-   1) `python src/simulador.py`.
+   1) `python simulador.py`.
    2) **Importante**: La ejecución de los comandos se deben de realizar desde la raiz del proyecto. La alternativa es adecuar el programa python para recuperar el modelo de ML de la ruta indicada.
 3) Instalar y levantar el servicio Docker. La forma sensilla para desarrolladores es descargar el software [Docker Desktop](https://www.docker.com/products/docker-desktop/). 
 
