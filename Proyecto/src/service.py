@@ -1,12 +1,11 @@
-import pickle
-
+import joblib as jl
 import pandas as pd
 from fastapi import FastAPI
 
 app = FastAPI()
 # Cargar modelo
-with open('pld_model_RandomForest.pkl', "rb") as f:
-    model = pickle.load(f)
+with open('../models/pld_model_RandomForest.pkl', "rb") as f:
+    model = jl.load(f)
 
 
 @app.get("/")
@@ -22,4 +21,4 @@ def predict(initial_balance: float, tx_amount: float, client_income: float, hist
                                  columns=["INIT_BALANCE", "TX_AMOUNT", "CLIENT_INCOMES", "HIST_AMOUNT",
                                           "INCORPORATION"])
     prediction = model.predict(transacciones)
-    return {"es fraude?": prediction.tolist()[0]}
+    return {"fraud": prediction.tolist()[0]}

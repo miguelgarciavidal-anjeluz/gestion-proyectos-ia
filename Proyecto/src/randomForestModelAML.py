@@ -100,7 +100,7 @@ class PLDEvaluatorModels:
                 'RandomForest': Pipeline(
                     [('prep', prep), ('clf', RandomForestClassifier(n_estimators=300, random_state=42))]),
             }
-        print(f"Dividiendo Dataset: total de datos para prueba {self.test_size}%")
+        print(f"Dividiendo Dataset: total de datos para prueba {self.test_size * 100}%")
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X, self.y,
                                                                                 test_size=self.test_size,
                                                                                 stratify=self.y, random_state=42)
@@ -110,7 +110,7 @@ class PLDEvaluatorModels:
 
         results = []
         for name, pipe in self.models.items():
-            print(f"Iniciando entrenamiento del modelo {name} - {pipe}")
+            print(f"Iniciando entrenamiento del modelo {name}")
             ev = ModelEvaluator(name, pipe)
             ev.fit(self.X_train, self.y_train)
             _, prob = ev.predict(self.X_test)
