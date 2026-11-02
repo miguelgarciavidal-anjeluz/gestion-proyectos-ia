@@ -89,7 +89,11 @@ INFO:     Application startup complete.
 
 - `GET`: http://localhost:8000/
 - `POST`: http://localhost:8000/predict
-2) Ejecutar el comando: `python src/simuladorClienteAPI.py`. Se mostrará un prompt solicitando la información para realizar la predicción.
+2) Ejecución de pruebas unitarias. Para la ejecución de pruebas unitarias se debe ejecutar el comando: 
+ 
+   - `python src/simuladorClienteAPI.py` 
+
+      Se mostrará un prompt solicitando los parámetros para realizar la predicción. Por ejemplo:
 ```
 Initial Balance:9000
 Tx Amount:9876.40
@@ -98,7 +102,10 @@ Historical Amount:90
 Incorporation Days:423
 {'es fraude?': True}
 ```
-
+3) Ejecución masiva de pruebas de acuerdo a la matriz. Para la ejecución de pruebas correspondientes a la matriz se debe ejecutar el comando:
+   
+   -  `python simuladorMasivo.py`
+ 
 
 ## Generación de contenedor Docker
 
@@ -110,10 +117,19 @@ Incorporation Days:423
 
 Para la creación del contenedor se utilizará el archivo `Dockerfile` el cual está configurado para recuperar los elementos a contenizar conforme a la estructura del proyecto. Para ello se deberá de ejecutar el comando:
 - `docker build -t modelo_fraude .` 
-- **Nota**: El nombre del modelo se puede ajustar.
+   
+   **Nota**: El nombre del modelo se puede ajustar.
 
 ### Levantar servicio contenerizado.
 
 Para levantar la API que se podrá utilizar para realizar las predicciones se hará uso del comando:
 
 -  `docker run -p 8000:8000 modelo_fraude`
+
+   Se mostrará una pantalla como:
+   ````
+   INFO:     Started server process [1]
+   INFO:     Waiting for application startup.
+   INFO:     Application startup complete.
+   INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+   ````
