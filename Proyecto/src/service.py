@@ -16,6 +16,8 @@ def home():
 @app.post("/predict")
 def predict(initial_balance: float, tx_amount: float, client_income: float, historical_amount: float,
             incorparation_days: float):
+    if tx_amount <= 0 or incorparation_days <= 0 or historical_amount <= 0:
+        return {"fraud": None}
     data = [initial_balance, tx_amount, client_income, historical_amount, incorparation_days]
     transacciones = pd.DataFrame([data],
                                  columns=["INIT_BALANCE", "TX_AMOUNT", "CLIENT_INCOMES", "HIST_AMOUNT",
