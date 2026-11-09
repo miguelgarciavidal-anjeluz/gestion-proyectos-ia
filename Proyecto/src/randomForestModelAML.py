@@ -68,8 +68,10 @@ class PLDEvaluatorModels:
 
         self.X_train = None
         self.X_test = None
+        self.X_validate = None
         self.y_train = None
         self.y_test = None
+        self.y_validate = None
         self.models = {}
 
         self.results_df = pd.DataFrame()
@@ -101,9 +103,10 @@ class PLDEvaluatorModels:
                     [('prep', prep), ('clf', RandomForestClassifier(n_estimators=300, random_state=42))]),
             }
         print(f"Dividiendo Dataset: total de datos para prueba {self.test_size * 100}%")
-        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X, self.y,
+        train_X, self.X_test, trian_y, self.y_test = train_test_split(self.X, self.y,
                                                                                 test_size=self.test_size,
                                                                                 stratify=self.y, random_state=42)
+        self.X_train, self.X_validate, self.y_train, self.y_validate = train_test_split(train_X, trian_y, random_state=42, test_size=1/3)
 
     def run_models(self):
 
@@ -113,9 +116,9 @@ class PLDEvaluatorModels:
             print(f"Iniciando entrenamiento del modelo {name}")
             ev = ModelEvaluator(name, pipe)
             ev.fit(self.X_train, self.y_train)
-            _, prob = ev.predict(self.X_test)
+            _, prob = ev.predict(self.X_validate)
 
-            threshold, best_recall, best_prec = ev.find_best_threshold(self.y_test, prob)
+            threshold, best_recall, best_prec = ev.find_best_threshold(self.y_validate, prob)
             print(f"Model: {name} Treshold: {threshold}, Best f1 score: {best_recall}, Best Precision: {best_prec}")
             pred, prob = ev.predict(self.X_test, threshold=threshold)
 
@@ -163,4 +166,5 @@ save_model_path = '../models/'
 
 evaluatorModel = PLDEvaluatorModels(datasetPath=path, target='IS_FRAUD', models_list=['RandomForest'], model_path=save_model_path)
 evaluatorModel.preprocess()
-evaluatorModel.run_models()
+res = evaluatorModel.run_models()
+print(res)
