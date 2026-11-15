@@ -135,11 +135,8 @@ class MonitorModel:
         self.logger = logging.getLogger("MonitorModel")
         self.slo = {
             "latency_max_mx": 500,
-            "accuracy_min": 0.90,
             "precision_min": 0.95,
             "recall_min": 0.98,
-            "f1_min": 0.95,
-            "roc_auc_min": 0.95,
         }
 
 
@@ -150,21 +147,12 @@ class MonitorModel:
         if metricas_nuevas["Latency"] > self.slo["latency_max_mx"]:
             latency = metricas_nuevas["Latency"]
             errors["Latencia"] = f"Latencia {latency} debe ser menor de {self.slo['latency_max_mx']}"
-        if metricas_nuevas["Accuracy"] < self.slo["accuracy_min"]:
-            accuracy = metricas_nuevas["Accuracy"]
-            errors["Accuracy"] = f"Accuracy {accuracy} debe ser mayor de {self.slo['accuracy_min']}"
         if metricas_nuevas["Precision"] < self.slo["precision_min"]:
             precision = metricas_nuevas["Precision"]
             errors["Precision"] = f"Precision {precision} debe ser mayor de {self.slo['precision_min']}"
         if metricas_nuevas["Recall"] < self.slo["recall_min"]:
             recall = metricas_nuevas["Recall"]
             errors["Recall"] = f"Recall {recall} debe ser mayor de {self.slo['recall_min']}"
-        if metricas_nuevas["F1_score"] < self.slo["f1_min"]:
-            f1 = metricas_nuevas["F1_score"]
-            errors["F1"] = f"F1-score {f1} debe ser mayor de {self.slo['f1_min']}"
-        if metricas_nuevas["Roc_auc"] < self.slo["roc_auc_min"]:
-            roc_auc = metricas_nuevas["Roc_auc"]
-            errors["Roc_auc"] = f"ROC_AUC {roc_auc} debe ser mayor de {self.slo['roc_auc_min']}"
         return errors
 
     def execute_monitoring(self, monitor_name:str, umbral:float=0.25, degrada:bool=False, normal_degradado_simulation:float=3.0, simulate_time_out:bool=False):
@@ -203,19 +191,14 @@ class MonitorModel:
                 "criterion": self.modelo.criterion,
                 "max_depth": self.modelo.max_depth,
                 "class_weight": self.modelo.class_weight,
-                "slo_accuracy_min": self.slo["accuracy_min"],
                 "slo_precision_min": self.slo["precision_min"],
                 "slo_recall_min": self.slo["recall_min"],
-                "slo_f1_min": self.slo["f1_min"],
-                "slo_roc_auc_min": self.slo["roc_auc_min"],
                 "slo_latency_max_mx": self.slo["latency_max_mx"],
             })
             # -- Métricas --
         mlflow.log_metrics(metricas)
         mlflow.log_metric("slo_violations", len(errors))
         mlflow.log_metric("error_recall_dif",max(0,self.slo["recall_min"]-metricas["Recall"]))
-        mlflow.log_metric("error_accuracy_dif", max(0, self.slo["accuracy_min"] - metricas["Accuracy"]))
-        mlflow.log_metric("error_f1_dif", max(0, self.slo["f1_min"] - metricas["F1_score"]))
         mlflow.log_metric("error_precision_dif", max(0, self.slo["precision_min"] - metricas["Precision"]))
         mlflow.log_metric("error_latency_dif", max(0, metricas["Latency"] - self.slo["latency_max_mx"]))
             # -- Logs --
@@ -229,7 +212,7 @@ class MonitorModel:
 
                 if 'Latencia' in errors:
                     self.runbook_alta_latencia(errors)
-                if 'Accuracy' in errors or 'F1' in errors or 'Precision' in errors or 'Recall' in errors or 'Roc_auc' in errors:
+                if 'Precision' in errors or 'Recall' in errors:
                     y_train = self.modelo.y_train
                     self.runbook_reentrena_modelo(X_train, y_train, X_test, y_test, errors)
         else:

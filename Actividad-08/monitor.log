@@ -300,3 +300,57 @@
 2026-11-14 22:02:11,634 - MonitorModel - INFO - RUNBOOK-01 - REENTRENA modelo completado 2026-11-14T22:02:11.634295
 2026-11-14 22:02:45,160 - MonitorModel - INFO - Monitoring Exp4 - Umbral
 2026-11-14 22:02:45,629 - MonitorModel - INFO - SLO dentro de los umbrales
+2026-11-15 08:34:08,319 - MonitorModel - INFO - Monitoring Exp1 - Base
+2026-11-15 08:34:08,978 - MonitorModel - INFO - SLO dentro de los umbrales
+2026-11-15 08:34:42,271 - MonitorModel - INFO - Monitoring Exp2 - Latencia
+2026-11-15 08:34:44,256 - MonitorModel - ERROR - Errors durante el experimento SLO superados: {'Latencia': 'Latencia 1854.8973 debe ser menor de 500'}
+2026-11-15 08:34:44,256 - MonitorModel - ERROR - Latencia 1854.8973 debe ser menor de 500
+2026-11-15 08:34:44,257 - MonitorModel - INFO - RUNBOOK-02 - ALTA latencia del modelo iniciando 2026-11-15T08:34:44.257617
+2026-11-15 08:34:44,257 - MonitorModel - INFO - 1) Latencia detectada: Latencia 1854.8973 debe ser menor de 500
+2026-11-15 08:34:44,257 - MonitorModel - INFO - 2) Causa - Saturación de servidores actual
+2026-11-15 08:34:44,257 - MonitorModel - INFO - 3) Resolución - Desplegando nuevo servidor (escalando infraestructura) - SIMULACIÓN
+2026-11-15 08:34:49,258 - MonitorModel - INFO - 4) Verificando recuperación de SLOs de Latencia
+2026-11-15 08:34:49,259 - MonitorModel - INFO - Latencia detectada: 357ms
+2026-11-15 08:34:49,259 - MonitorModel - INFO - Error registrado en el log de incidentes
+2026-11-15 08:34:49,259 - MonitorModel - INFO - RUNBOOK-02 - ALTA latencia del modelo completado 2026-11-15T08:34:49.259453
+2026-11-15 08:35:51,516 - MonitorModel - INFO - Monitoring Exp3 - DataDrift
+2026-11-15 08:35:51,516 - MonitorModel - WARNING - Simulando degradado del modelo
+2026-11-15 08:35:51,987 - MonitorModel - ERROR - Errors durante el experimento SLO superados: {'Precision': 'Precision 0.9327 debe ser mayor de 0.95'}
+2026-11-15 08:35:51,987 - MonitorModel - ERROR - Precision 0.9327 debe ser mayor de 0.95
+2026-11-15 08:35:51,988 - MonitorModel - INFO - RUNBOOK-01 - REENTRENA modelo iniciando 2026-11-15T08:35:51.988132
+2026-11-15 08:35:51,988 - MonitorModel - INFO - 1) Causa del error: DataDrift detectado
+2026-11-15 08:35:51,988 - MonitorModel - INFO - 2) Descargando datos actualizados
+2026-11-15 08:35:51,988 - MonitorModel - INFO - 3) Comenzando reentrenamiento
+2026-11-15 08:36:22,461 - MonitorModel - INFO - 4) Evaluando modelo reentrenado
+2026-11-15 08:36:22,911 - MonitorModel - INFO - 5) Verificando SLOs del reentrenamiento
+2026-11-15 08:36:22,911 - MonitorModel - INFO - Nuevo modelo cumple los SLOs: {'Latency': 333.4661, 'Accuracy': 0.9991, 'Precision': 0.9959, 'Recall': 1.0, 'F1_score': 0.9979, 'Roc_auc': 1.0}
+2026-11-15 08:36:22,911 - MonitorModel - INFO - RUNBOOK-01 - REENTRENA modelo completado 2026-11-15T08:36:22.911870
+2026-11-15 08:36:55,928 - MonitorModel - INFO - Monitoring Exp4 - Umbral
+2026-11-15 08:36:56,394 - MonitorModel - INFO - SLO dentro de los umbrales
+2026-11-15 08:39:02,548 - MonitorModel - INFO - Monitoring Exp1 - Base
+2026-11-15 08:39:03,193 - MonitorModel - INFO - SLO dentro de los umbrales
+2026-11-15 08:39:36,599 - MonitorModel - INFO - Monitoring Exp2 - Latencia
+2026-11-15 08:39:38,582 - MonitorModel - ERROR - Errors durante el experimento SLO superados: {'Latencia': 'Latencia 1851.1329 debe ser menor de 500'}
+2026-11-15 08:39:38,582 - MonitorModel - ERROR - Latencia 1851.1329 debe ser menor de 500
+2026-11-15 08:39:38,583 - MonitorModel - INFO - RUNBOOK-02 - ALTA latencia del modelo iniciando 2026-11-15T08:39:38.583783
+2026-11-15 08:39:38,583 - MonitorModel - INFO - 1) Latencia detectada: Latencia 1851.1329 debe ser menor de 500
+2026-11-15 08:39:38,583 - MonitorModel - INFO - 2) Causa - Saturación de servidores actual
+2026-11-15 08:39:38,583 - MonitorModel - INFO - 3) Resolución - Desplegando nuevo servidor (escalando infraestructura) - SIMULACIÓN
+2026-11-15 08:39:43,584 - MonitorModel - INFO - 4) Verificando recuperación de SLOs de Latencia
+2026-11-15 08:39:43,585 - MonitorModel - INFO - Latencia detectada: 357ms
+2026-11-15 08:39:43,585 - MonitorModel - INFO - Error registrado en el log de incidentes
+2026-11-15 08:39:43,585 - MonitorModel - INFO - RUNBOOK-02 - ALTA latencia del modelo completado 2026-11-15T08:39:43.585387
+2026-11-15 08:40:16,235 - MonitorModel - INFO - Monitoring Exp3 - DataDrift
+2026-11-15 08:40:16,235 - MonitorModel - WARNING - Simulando degradado del modelo
+2026-11-15 08:40:16,703 - MonitorModel - ERROR - Errors durante el experimento SLO superados: {'Precision': 'Precision 0.9327 debe ser mayor de 0.95'}
+2026-11-15 08:40:16,703 - MonitorModel - ERROR - Precision 0.9327 debe ser mayor de 0.95
+2026-11-15 08:40:16,704 - MonitorModel - INFO - RUNBOOK-01 - REENTRENA modelo iniciando 2026-11-15T08:40:16.704385
+2026-11-15 08:40:16,704 - MonitorModel - INFO - 1) Causa del error: DataDrift detectado
+2026-11-15 08:40:16,704 - MonitorModel - INFO - 2) Descargando datos actualizados
+2026-11-15 08:40:16,704 - MonitorModel - INFO - 3) Comenzando reentrenamiento
+2026-11-15 08:40:46,967 - MonitorModel - INFO - 4) Evaluando modelo reentrenado
+2026-11-15 08:40:47,415 - MonitorModel - INFO - 5) Verificando SLOs del reentrenamiento
+2026-11-15 08:40:47,415 - MonitorModel - INFO - Nuevo modelo cumple los SLOs: {'Latency': 331.1641, 'Accuracy': 0.9991, 'Precision': 0.9959, 'Recall': 1.0, 'F1_score': 0.9979, 'Roc_auc': 1.0}
+2026-11-15 08:40:47,415 - MonitorModel - INFO - RUNBOOK-01 - REENTRENA modelo completado 2026-11-15T08:40:47.415459
+2026-11-15 08:41:20,180 - MonitorModel - INFO - Monitoring Exp4 - Umbral
+2026-11-15 08:41:20,642 - MonitorModel - INFO - SLO dentro de los umbrales

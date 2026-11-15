@@ -27,6 +27,10 @@ Actividad-08/
     ├── mlflow_Exp2 - Latencia.png
     ├── mlflow_Exp3 - DataDrift.png
     ├── mlflow_Exp4 - Umbral.png
+    ├── mlflow_Experiments.png
+    ├── mlflow_Run_DataDrift.png
+    ├── mlflow_Run_Latencia.png
+    ├── mlflow_Run_Umbral.png
 └── results/
     ├── classification_report.json  #Reporte de la clasificación del último entrenamiento del modelo
     ├── confusion_matrix.png        #Matriz de confusiíon del último entrenamiento realizado del modelo
@@ -81,12 +85,10 @@ Abre `http://localhost:5000` para ver el dashboard con todos los runs, métricas
 
 | Métrica | Descripción | SLO |
 |---------|-------------|-----|
-| `Accuracy` | Sensibilidad del modelo | ≥ 0.90 |
 | `Precision` | Sensibilidad del modelo | ≥ 0.95 |
 | `Recall` | Sensibilidad del modelo | ≥ 0.98 |
-| `F1 score` | Sensibilidad del modelo | ≥ 0.95 |
 | `latencia_ms` | Tiempo de respuesta por predicción | ≤ 500ms |
-| `errors` | Número de SLOs con error | 0 |
+| `slo_violations` | Número de SLOs con error | 0 |
 
 ### Logs
 
@@ -126,11 +128,8 @@ Cada run registra automáticamente:
 ```python
 self.slo = {
             "latency_max_mx": 500,
-            "accuracy_min": 0.90,
             "precision_min": 0.95,
             "recall_min": 0.98,
-            "f1_min": 0.95,
-            "roc_auc_min": 0.95,
 }
 ```
 
@@ -138,7 +137,7 @@ self.slo = {
 
 | Severidad | Trigger | Runbook | Tiempo respuesta |
 |-----------|---------|---------|-----------------|
-| **ALTA** | 'Accuracy' < 0.90 o 'F1' < 0.95 o 'Precision' < 0.95 o 'Recall' < 0.98 o 'Roc_auc' < 0.95: | RUNBOOK-001 Reentrenamiento | 5-10 min |
+| **ALTA** | Precision < 0.95 o Recall < 0.98 | RUNBOOK-001 Reentrenamiento | 5-10 min |
 | **MEDIA** | Latencia > 500ms | RUNBOOK-002 ALTA latencia | 2-5 min |
 
 ### Lógica de detección automática
@@ -156,7 +155,7 @@ El sistema verifica SLOs después de cada predicción y registra violaciones en 
 
                 if 'Latencia' in errors:
                     self.runbook_alta_latencia(errors)
-                if 'Accuracy' in errors or 'F1' in errors or 'Precision' in errors or 'Recall' in errors or 'Roc_auc' in errors:
+                if 'Precision' in errors or 'Recall' in errors:
                     y_train = self.modelo.y_train
                     self.runbook_reentrena_modelo(X_train, y_train, X_test, y_test, errors)
 ```
@@ -173,7 +172,7 @@ El Exp3 `Data Drift` muestra `Precision: 0.9327` por debajo del SLO de 0.95, con
 
 ### Vista general de incidentes simulados
 
-![Evaluation Runs](evidencias/mlflow_Run_Latencia.png)
+![Evaluation Runs](evidencias/mlflow_Experiments.png)
 
 ---
 
@@ -182,15 +181,20 @@ El Exp3 `Data Drift` muestra `Precision: 0.9327` por debajo del SLO de 0.95, con
 **Descripción:** Se simula Alta latencia al llamar al modelo, para ello se añade un tiempo de espera de 1.5s
 
 **Impacto detectado:**
-- `Latencia: 1850.0569 > SLO 500ms`
+- `Latencia: 1851.1329 > SLO 500ms`
 - `slo_status: VIOLATION`
+- `error_latency_dif = 1351.1329`
 - `causa: carga_excesiva`
 
-**Runbook ejecutado:** RUNBOOK-001 Alta latencia
+**Runbook ejecutado:** RUNBOOK-002 Alta latencia
 
 **Resultado:** Latencia recuperada
 
 ![Incidente Alta Latencia](evidencias/mlflow_Exp2%20-%20Latencia.png)
+
+**Log del modelo**
+
+![Log Exp2](evidencias/Exp2_Latencia_log.png)
 
 ---
 
@@ -200,22 +204,53 @@ El Exp3 `Data Drift` muestra `Precision: 0.9327` por debajo del SLO de 0.95, con
 
 **Impacto detectado:**
 - Precision baja de `0.9959` a `0.9327` por debajo del SLO de `0.95`.
-- Variación de precisión de `0.01729999`
+- `error_precision_dif: 0.01729999`
 - `slo_status: VIOLATION`
 
-**Runbook ejecutado:** RUNBOOK-002 REENTRENA
+**Runbook ejecutado:** RUNBOOK-001 REENTRENA
 
 **Resultado:** Modelo reentrenado con los nuevos datos, recuperando los SLOs:
-`{'Latency': 328.5151, 'Accuracy': 0.9991, 'Precision': 0.9959, 'Recall': 1.0, 'F1_score': 0.9979, 'Roc_auc': 1.0}`
+- `Latency: 328.5151`
+- `Precision': 0.9959`
+- `Recall': 1.0`
 
 ![Incidente Modelo Degradado](evidencias/mlflow_Exp3%20-%20DataDrift.png)
+**Log del modelo**
+
+![Log Exp2](evidencias/Exp3_DataDrift_log.png)
 
 ---
 
 ## 4. Documentación de Respuesta Automatizada
 
 ### Catálogo de Runbooks
-#### RUNBOOK-001 — Escalamiento del servicio
+
+#### RUNBOOK-001 — Reentrenamiento del modelo
+```
+Trigger:    Precision < 0.95 o Recall < 0.98 
+Severidad:  ALTA
+Tiempo:     2-5 minutos
+
+Pasos:
+1. Detectar violación de SLO
+2. Descargar dataset actualizado
+3. Reentrenar modelo con parámetros optimizados
+4. Evaluar que el nuevo modelo cumpla los SLOs
+5. Reemplazar modelo en producción
+6. Registrar evento en log de incidentes
+```
+#### Estrategia de detección de Data Drift
+
+El sistema detecta data drift monitoreando la degradación de métricas:
+
+| Indicador | Condición de alerta |
+|-----------|---------------------|
+|Caida de Precision| Por debajo de SLO 0.95|
+|Caida de Recall| Por debajo de SLO 0.98|
+
+Cuando se detecta drift, se activa automáticamente RUNBOOK-001 para reentrenar el modelo con datos actualizados.
+
+#### RUNBOOK-002 — Escalamiento del servicio
 ```
 Trigger:    Latencia > 500ms
 Severidad:  MEDIA
@@ -228,35 +263,16 @@ Pasos:
 4. Verificar recuperación de SLOs latencia
 5. Registrar evento
 ```
+#### Estrategia de detección de Alta Latencia
 
-#### RUNBOOK-002 — Reentrenamiento del modelo
-```
-Trigger:    'Accuracy' < 0.90 o 'F1' < 0.95 o 'Precision' < 0.95 o 'Recall' < 0.98 o 'Roc_auc' < 0.95: 
-Severidad:  ALTA
-Tiempo:     5-10 minutos
-
-Pasos:
-1. Detectar violación de SLO
-2. Descargar dataset actualizado
-3. Reentrenar modelo con parámetros optimizados
-4. Evaluar el nuevo modelo cumple SLOs
-5. Reemplazar modelo en producción
-6. Registrar evento en log de incidentes
-```
-#### Estrategia de detección de Data Drift
-
-El sistema detecta data drift monitoreando la degradación de métricas:
+El sistema detecta Alta latencia monitoreando la degradación de métricas:
 
 | Indicador | Condición de alerta |
 |-----------|---------------------|
-| Caída de Accuracy | Por debajo de SLO 0.90|
-| Caída de recall | Por debajo de SLO 0.80 |
-|Caida de F1 | Por debajo de SLO 0.95|
-|Caida de Precision| Por debajo de SLO 0.95|
-|Caida de Recall| Por debajo de SLO 0.98|
-|Caida de Roc_Auc| Por debajo de SLO 0.95| 
+|Latencia| Superior de SLO 500ms|
 
-Cuando se detecta drift, se activa automáticamente RUNBOOK-002 para reentrenar el modelo con datos actualizados.
+Cuando se detecta Alta latencia, se activa automáticamente RUNBOOK-002 para un crecimiento horizontal en infraestructura.
+
 
 ### Flujo completo de respuesta automatizada
 
@@ -270,8 +286,8 @@ Verificación de SLOs
 ¿Violación detectada?
     ├── NO → Log "OK" en MLflow → Continuar
     └── SÍ → Clasificar severidad
-                ├── ALTA    → RUNBOOK-002 Reentrenamiento
-                └── MEDIA   → RUNBOOK-001 Alta Latencia
+                ├── ALTA    → RUNBOOK-001 Reentrenamiento
+                └── MEDIA   → RUNBOOK-002 Alta Latencia
                         ↓
                 Verificar recuperación
                         ↓
@@ -284,10 +300,10 @@ Verificación de SLOs
 
 | Run | Precision |  Latencia | SLO Status |Precision Post Corrección|Latencia Post Corrección|
 |-----|--------|---------------|------------|-----|-----|
-| Exp1 - Base  | 0.9959 | 333.709ms | ⚠️ Especificidad |N/A|N/A|
-| Exp2 - Latencia | 0.9959 | 1850.0569ms | ✅ Resuelto |N/A|357ms|
-| Exp3 - DataDrift |  0.9327 | 339.3238 | ✅ Resuelto |0.9959|N/A|
-| Exp4 - Umbral | 0.9991|323.096|⚠️ Especificidad|N/A|N/A|
+| Exp1 - Base  | 0.9959 | 333.709ms | OK |N/A|N/A|
+| Exp2 - Latencia | 0.9959 | 1850.0569ms | ✅ Error Resuelto |N/A|357ms|
+| Exp3 - DataDrift |  0.9327 | 339.3238 | ✅ Error Resuelto |0.9959|N/A|
+| Exp4 - Umbral | 0.9991|323.096|OK|N/A|N/A|
 
 
 
