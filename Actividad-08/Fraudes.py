@@ -69,7 +69,7 @@ class ModeloFraudes:
     def train(self):
         print("Entrenando modelo")
         self.model.fit(self.X_train, self.y_train)
-        with open(f"models/{self.model}.pkl", "wb") as file:
+        with open(f"models/RandomForest{self.name}.pkl", "wb") as file:
             pickle.dump(self.model, file)
 
     def evaluate(self, X_test:pd.DataFrame, y_test:pd.DataFrame, umbral:float=0.25, simulate_time_out:bool=False):
