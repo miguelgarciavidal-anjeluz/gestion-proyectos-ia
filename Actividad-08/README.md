@@ -23,6 +23,9 @@ Actividad-08/
 └── data/
     ├── fraudes.csv         # Dataset para el entrenamiento del modelo.
 └── evidencias/
+    ├── Exp2_Latencia_log.png
+    ├── Exp3_DataDrift_log.png
+    ├── Exp4_Umbral_log.png
     ├── mlflow_Exp1 - Base.png
     ├── mlflow_Exp2 - Latencia.png
     ├── mlflow_Exp3 - DataDrift.png
